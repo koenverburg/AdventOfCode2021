@@ -54,19 +54,19 @@ func runPart2(list []int) int {
 
 
 func main() {
-  input := utils.ReadFromTextFile("day1/input.txt")
-	// input := []int{
-	// 	199,
-	// 	200,
-	// 	208,
-	// 	210,
-	// 	200,
-	// 	207,
-	// 	240,
-	// 	269,
-	// 	260,
-	// 	263,
-  // }
+  // input := utils.ReadFromTextFileInt("day1/input.txt")
+	input := []int{
+		199,
+		200,
+		208,
+		210,
+		200,
+		207,
+		240,
+		269,
+		260,
+		263,
+  }
 
   result := runPart2(input)
   fmt.Printf("The result of the first day is '%v'\n", result)
