@@ -27,6 +27,32 @@ func run(list []int) int {
   return increasesCount
 }
 
+func runPart2(list []int) int {
+  sumList := []int{}
+  startingPoint := 0
+
+  for startingPoint < len(list) {
+    idx := startingPoint
+    if (idx+1 >= len(list) || idx+2 >= len(list)) {
+      break
+    }
+
+    value1 := list[idx]
+    value2 := list[idx+1]
+    value3 := list[idx+2]
+
+    sum := value1 + value2 + value3
+    sumList = append(sumList, sum)
+
+    startingPoint++
+  }
+
+  // fmt.Println(sumList)
+
+  return run(sumList)
+}
+
+
 func main() {
   input := utils.ReadFromTextFile("day1/input.txt")
 	// input := []int{
@@ -42,6 +68,6 @@ func main() {
 	// 	263,
   // }
 
-  result := run(input)
+  result := runPart2(input)
   fmt.Printf("The result of the first day is '%v'\n", result)
 }
