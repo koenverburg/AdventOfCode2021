@@ -13,17 +13,16 @@ func CheckIfErr(err error) {
   }
 }
 
-func ReadFromTextFile(path string) []int {
+func ReadFromTextFile(path string) []string {
 	file, err := os.Open(path)
   CheckIfErr(err)
 
   scanner := bufio.NewScanner(file)
-  var items []int
+  var items []string
   for scanner.Scan() {
     value := scanner.Text()
-    linevalue, err := strconv.ParseInt(value, 10, 64)
     CheckIfErr(err)
-    items = append(items, int(linevalue))
+    items = append(items, value)
   }
 
   if err := scanner.Err(); err != nil {

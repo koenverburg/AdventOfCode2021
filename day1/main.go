@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/koenverburg/AdventOfCode2021/utils"
 )
 
 func run(list []int) int {
