@@ -17,7 +17,6 @@ func run(list []int) int {
     previousValue := list[index]
 
     if (list[i] > previousValue) {
-      // fmt.Println(list[i])
       increasesCount = increasesCount + 1
     }
   }
@@ -44,8 +43,6 @@ func runPart2(list []int) int {
 
     startingPoint++
   }
-
-  // fmt.Println(sumList)
 
   return run(sumList)
 }
