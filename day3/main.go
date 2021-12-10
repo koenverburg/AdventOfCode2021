@@ -8,52 +8,75 @@ import (
 	"github.com/koenverburg/AdventOfCode2021/utils"
 )
 
-func convertToInt(binary string) int {
-  value, err := strconv.Atoi(binary) // , 2, 64)
+func convertToInt(binary string) uint64 {
+  value, err := strconv.ParseUint(binary, 2, 32)
   utils.CheckIfErr(err)
-  // fmt.Println("i8", strconv.FormatInt(int64(value), 2))
-
   return value
 }
 
 
-func createBoolList(lines []string) []string {
-  list := []string {}
-  for _, line := range lines {
-    fmt.Println(line, strings.Count(line, "1"), strings.Count(line, "0"))
-    if(strings.Count(line, "1") > len(line) / 2) {
-      list = append(list, "1")
-    } else {
-      list = append(list, "0")
+func sumBool(b ...bool) int {
+  n := 0
+  for _, v := range b {
+    if v {
+      n++
     }
   }
-  return list
+  return n
 }
 
-func flipToEpsilon(lines []string) []string {
-  list := []string{}
-  for _, line := range lines {
-    if(line == "1") {
-      list = append(list, "0")
+func flippingBits(b ...bool) string {
+  r := []string{}
+  for _, v := range b {
+    if v {
+      r = append(r, "1")
     } else {
-      list = append(list, "1")
+      r = append(r, "0")
     }
   }
-  return list
+
+  return strings.Join(r, "")
 }
 
+func createGamma(lines []string) []bool {
+  boolSlice := [][]bool{}
+  for _, line := range lines {
+    bucket := []bool{}
+    for _, char := range strings.Split(line, "") {
+      if char == "1" {
+        bucket = append(bucket, true)
+      } else {
+        bucket = append(bucket, false)
+      }
+    }
+    boolSlice = append(boolSlice, bucket)
+  }
+  
+  result := []bool{}
+  for _, x := range boolSlice {
+    result = append(result, sumBool(x...) > len(x) / 2)
+  }
+
+  return result
+}
+
+func flipToEpsilon(lines []bool) []bool {
+  r := []bool{}
+  for _, line := range lines {
+    r = append(r, !line)
+  }
+  return r
+}
 
 func runner(lines []string) {
-  gammaList := createBoolList(lines)
+  gammaList := createGamma(lines)
   epsilonList := flipToEpsilon(gammaList)
 
-  // fmt.Println(gammaList)
-  // fmt.Println(epsilonList)
-  fmt.Println(strings.Join(gammaList, "")[7:])
-  fmt.Println(strings.Join(epsilonList, "")[7:])
+  fmt.Println(gammaList, flippingBits(gammaList...))
+  fmt.Println(epsilonList, flippingBits(epsilonList...))
 
-  gamma := convertToInt(strings.Join(gammaList[7:], ""))
-  epsilon := convertToInt(strings.Join(epsilonList[7:], ""))
+  gamma := convertToInt(flippingBits(gammaList[7:]...))
+  epsilon := convertToInt(flippingBits(epsilonList[7:]...))
 
   fmt.Printf("The result of gamma rate is %v and epsilon rate is %v, which brings the power consumption to %v\n", gamma, epsilon, gamma * epsilon)
 }
