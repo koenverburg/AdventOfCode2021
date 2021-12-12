@@ -75,8 +75,8 @@ func runner(lines []string) {
   fmt.Println(gammaList, flippingBits(gammaList...))
   fmt.Println(epsilonList, flippingBits(epsilonList...))
 
-  gamma := convertToInt(flippingBits(gammaList[7:]...))
-  epsilon := convertToInt(flippingBits(epsilonList[7:]...))
+  gamma := convertToInt(flippingBits(gammaList...))
+  epsilon := convertToInt(flippingBits(epsilonList...))
 
   fmt.Printf("The result of gamma rate is %v and epsilon rate is %v, which brings the power consumption to %v\n", gamma, epsilon, gamma * epsilon)
 }
