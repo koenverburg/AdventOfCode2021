@@ -1,4 +1,5 @@
-// const fs = require('fs')
+const fs = require('fs')
+const path = require('path')
 
 const input = [
   "00100",
@@ -14,6 +15,9 @@ const input = [
   "00010",
   "01010"
 ]
+
+// const buffer = fs.readFileSync(path.join(__dirname, './input.txt'))
+// const input = buffer.toString().split('\n')
 
 const inputWidth = input[0].length;
 const pivot = new Array(input[0].length).fill(0)
@@ -38,15 +42,18 @@ const runner = (input) => {
     pivot[index] = walkColumn(input, index)
   }
 
-  const gamma = createBinaryDigit(pivot)
-  const eps = createBinaryDigitFlipped(pivot)
+  const gammaBinary = createBinaryDigit(pivot)
+  const epsBinary = createBinaryDigitFlipped(pivot)
 
-  console.log({r: gamma, result: parseInt(gamma.join(''), 2) })
-  console.log({r: eps, result: parseInt(eps.join(''), 2) })
+  const gamma = parseInt(gammaBinary.join(''), 2) 
+  const eps = parseInt(epsBinary.join(''), 2) 
+
+  console.log(`result : ${gamma} * ${eps} = ${gamma * eps}`)
 
   return {
-    eps: parseInt(eps.join(''), 2),
-    gamma: parseInt(gamma.join(''), 2)
+    eps,
+    gamma,
+    consumption: gamma * eps
   }
 }
 

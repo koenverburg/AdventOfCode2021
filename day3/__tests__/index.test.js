@@ -16,10 +16,14 @@ const input = [
 ]
 
 describe('day3', () => {
+  beforeAll(() => {
+    console.log = () => {}
+  })
+
   test('part1', () => {
-    expect(runner(input)).toBe({
-      "gamma": 22,
-      "eps": 9
-    })
+    const result = runner(input)
+    expect(result.gamma).toBe(22)
+    expect(result.eps).toBe(9)
+    expect(result.consumption).toBe(198)
   })
 })
